@@ -59,6 +59,67 @@ This project is an end-to-end data analysis solution designed to extract critica
      - Profit margin analysis by branch and category.
    - **Documentation**: Keep clear notes of each query's objective, approach, and results.
 
+     '''sql
+     WITH
+	REVENUE22 AS (
+		SELECT
+			BRANCH,
+			EXTRACT(
+				YEAR
+				FROM
+					DATE
+			) AS YEAR22,
+			SUM(TOTAL_AMOUNT) AS SALES22
+		FROM
+			WALMART_ANALYSIS
+		WHERE
+			EXTRACT(
+				YEAR
+				FROM
+					DATE
+			) = '2022'
+		GROUP BY
+			BRANCH,
+			YEAR22
+	),
+	REVENUE23 AS (
+		SELECT
+			BRANCH,
+			EXTRACT(
+				YEAR
+				FROM
+					DATE
+			) AS YEAR23,
+			SUM(TOTAL_AMOUNT) AS SALES23
+		FROM
+			WALMART_ANALYSIS
+		WHERE
+			EXTRACT(
+				YEAR
+				FROM
+					DATE
+			) = '2023'
+		GROUP BY
+			BRANCH,
+			YEAR23
+		ORDER BY
+			BRANCH
+	)
+SELECT
+	A.BRANCH,
+	B.SALES23,
+	A.SALES22,
+	ROUND(((-((B.SALES23 - A.SALES22)/A.SALES22))*100),2) AS REVENUE_DECLINE
+FROM
+	REVENUE22 A
+	JOIN REVENUE23 B ON A.BRANCH = B.BRANCH
+WHERE SALES22 > SALES23
+ORDER BY
+	REVENUE_DECLINE DESC
+	LIMIT 5
+;
+'''
+
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
    - **Project Publishing**: Publish the completed project on GitHub or any other version control platform, including:
