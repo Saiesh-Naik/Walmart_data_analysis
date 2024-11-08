@@ -59,7 +59,7 @@ This project is an end-to-end data analysis solution designed to extract critica
      - Profit margin analysis by branch and category.
    - **Documentation**: Keep clear notes of each query's objective, approach, and results.
 
-     '''sql
+     ```pgsql
      WITH
 	REVENUE22 AS (
 		SELECT
@@ -105,6 +105,7 @@ This project is an end-to-end data analysis solution designed to extract critica
 		ORDER BY
 			BRANCH
 	)
+```
 SELECT
 	A.BRANCH,
 	B.SALES23,
@@ -118,8 +119,7 @@ ORDER BY
 	REVENUE_DECLINE DESC
 	LIMIT 5
 ;
-'''
-
+```
 ### 10. Project Publishing and Documentation
    - **Documentation**: Maintain well-structured documentation of the entire process in Markdown or a Jupyter Notebook.
    - **Project Publishing**: Publish the completed project on GitHub or any other version control platform, including:
